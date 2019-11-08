@@ -1,10 +1,18 @@
 
+@font-face {
+  font-family: 'TH Sarabun New';
+  src: local('../../resources/fonts/THSarabunNew-Italic.eot');
+  src: local('../../resources/fonts/THSarabunNew-Italic.eot?#iefix') format('embedded-opentype'),
+    local('../../resources/fonts/THSarabunNew-Italic.woff2') format('woff2'),
+    local('../../resources/fonts/THSarabunNew-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+}
+
 body {
   padding: 20px;
   color: #525252;
 }
-
-
 
 .card{
   min-height: 500px;

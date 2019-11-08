@@ -10,7 +10,7 @@ function nhso(userPersonId, token, personId = '1409900017301'){
         <soapenv:Body>
               <tok:searchCurrentByPID>
                   <user_person_id>${userPersonId}</user_person_id>
-                  <smctoken>${token}s</smctoken>
+                  <smctoken>${token}</smctoken>
                   <person_id>${personId}</person_id>
               </tok:searchCurrentByPID>
           </soapenv:Body>
@@ -42,6 +42,7 @@ function nhso(userPersonId, token, personId = '1409900017301'){
       });
   })
 
+  return request;
 }
 
 module.exports = nhso;
