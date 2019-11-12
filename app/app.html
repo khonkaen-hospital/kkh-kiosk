@@ -182,6 +182,21 @@
               <input type="text" class="form-control" id="txtApiToken" name="api_token" placeholder=""  required>
             </div>
           </div>
+
+          <div class="form-row">
+              <div class="col-md-6 mb-3">
+                  <label for="txtPrinterType">Printer Type</label>
+                  <select class="form-control" name="printer_type" id="txtPrinterType">
+                    <option value="usb">USB</option>
+                    <option value="ip">IP</option>
+                  </select>
+
+              </div>
+              <div class="col-md-6 mb-3">
+                  <label for="txtPrinterIp">Printer IP</label>
+                  <input type="text" class="form-control" id="txtPrinterIp" name="printer_ip" placeholder=""  required>
+              </div>
+            </div>
           <br>
           <button class="btn btn-primary" type="submit">บันทึก</button>
         </form>

@@ -27,7 +27,10 @@ const Store = require('electron-store');
 const schema = {
 	nhso: {
 		cardNo: '',
-		token: ''
+    token: '',
+    apiToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzM1Mjk5NjEsImV4cCI6MTg4OTEwNTk2MX0.nND9DZYH6Ap3OJHh6YPjVBTvUhoS667c3VV6kximKoI',
+    printerType: 'usb',
+    printerIp: '10.3.42.77'
 	}
 };
 const store = new Store({schema});
@@ -50,6 +53,8 @@ var pageError3 = '';
 var txtName = document.getElementById('firstName');
 var txtSurname = document.getElementById('lastName');
 var txtIdcard = document.getElementById('idcard');
+var txtPrinterType = document.getElementById('txtPrinterType');
+var txtPrinterIp = document.getElementById('txtPrinterIp');
 
 var txtName2 = document.getElementById('firstName2');
 var txtSurname2 = document.getElementById('lastName2');
@@ -151,7 +156,9 @@ function initForm() {
     store.set('nhso', {
       cardNo: '',
       token: '',
-      apiToken: ''
+      apiToken: '',
+      printerType: 'usb',
+      printerIp: '10.3.42.77'
     });
   } else {
     CARDNO = data.cardNo;
@@ -159,18 +166,26 @@ function initForm() {
     document.getElementById('txtCardNo').value = data.cardNo;
     document.getElementById('txtToken').value = data.token;
     document.getElementById('txtApiToken').value = data.apiToken;
+    document.getElementById('txtPrinterType').value = data.printerType;
+    document.getElementById('txtPrinterIp').value = data.printerIp;
   }
-  radius.setToken('http://iconnect.kkh.go.th:3008',data.apiToken,'10.3.42.77','ip');
+  radius.setToken('http://iconnect.kkh.go.th:3008',data.apiToken, data.printerIp, data.printerType);
 }
 
 forms.addEventListener('submit', event => {
   let cardNo = document.getElementById('txtCardNo').value;
   let token = document.getElementById('txtToken').value;
   let txtApiToken = document.getElementById('txtApiToken').value;
+
+  let txtPrinterType = document.getElementById('txtPrinterType').value;
+  let txtPrinterIp = document.getElementById('txtPrinterIp').value;
+
   store.set('nhso', {
     cardNo: cardNo,
 		token: token,
-		apiToken: txtApiToken
+    apiToken: txtApiToken,
+    printerType: txtPrinterType,
+    printerIp: txtPrinterIp
   });
   // back to home page
   animateCSS('#page4','slideOutDown', () => {
@@ -190,7 +205,6 @@ async function getNhso(cid){
 }
 
 function initSmartCard(){
-  console.log(4444)
   myReader.on('device-activated', async (event) => {
     console.log('Device-Activated')
     console.log(event.name)
