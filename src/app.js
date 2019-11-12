@@ -378,9 +378,15 @@ function printSlipCRight(ret) {
     wrapText(ctx, txtHospital, x, h+410, maxWidth, lineHeight);
 
     const url = canvas.toDataURL('image/png', 0.8);
+    let data = store.get('nhso');
+    var device = null;
+    if(data.printerType == 'ip'){
+      device = new escpos.Network(data.printerIp);
+    } else {
+      device = new escpos.USB();
+    }
 
-    //const device = new escpos.USB();
-    const device = new escpos.Network('10.3.42.77');
+
     const printer = new escpos.Printer(device);
 
     escpos.Image.load(url, function(image){
