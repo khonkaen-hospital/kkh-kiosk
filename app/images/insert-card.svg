@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="430" height="400" viewBox="0 0 430 400">
+  <defs>
+    <clipPath id="clip-Artboard_1">
+      <rect width="430" height="400"/>
+    </clipPath>
+  </defs>
+  <g id="Artboard_1" data-name="Artboard – 1" clip-path="url(#clip-Artboard_1)">
+    <g id="insert-card" transform="translate(0 2)" fill="#434343" stroke="#707070" stroke-linecap="round" stroke-width="25">
+      <rect width="429" height="88" rx="44" stroke="none"/>
+      <rect x="12.5" y="12.5" width="404" height="63" rx="31.5" fill="none"/>
+    </g>
+    <g id="card" transform="translate(509 -79) rotate(90)">
+      <g id="Rectangle_2" data-name="Rectangle 2" transform="translate(475 170) rotate(90)" fill="#fff" stroke="#707070" stroke-width="10">
+        <rect width="250" height="350" rx="20" stroke="none"/>
+        <rect x="5" y="5" width="240" height="340" rx="15" fill="none"/>
+      </g>
+      <g id="Rectangle_3" data-name="Rectangle 3" transform="translate(135 215)" fill="#434343" stroke="#707070" stroke-width="1">
+        <rect width="330" height="47" stroke="none"/>
+        <rect x="0.5" y="0.5" width="329" height="46" fill="none"/>
+      </g>
+      <g id="Rectangle_4" data-name="Rectangle 4" transform="translate(144 325)" fill="#c4c4c4" stroke="#939393" stroke-width="1">
+        <rect width="94" height="14" rx="7" stroke="none"/>
+        <rect x="0.5" y="0.5" width="93" height="13" rx="6.5" fill="none"/>
+      </g>
+      <g id="Rectangle_6" data-name="Rectangle 6" transform="translate(252 325)" fill="#c4c4c4" stroke="#939393" stroke-width="1">
+        <rect width="94" height="14" rx="7" stroke="none"/>
+        <rect x="0.5" y="0.5" width="93" height="13" rx="6.5" fill="none"/>
+      </g>
+      <g id="Rectangle_5" data-name="Rectangle 5" transform="translate(144 351)" fill="#c4c4c4" stroke="#939393" stroke-width="1">
+        <rect width="202" height="13" rx="6.5" stroke="none"/>
+        <rect x="0.5" y="0.5" width="201" height="12" rx="6" fill="none"/>
+      </g>
+    </g>
+    <path id="Icon_awesome-long-arrow-alt-up" data-name="Icon awesome-long-arrow-alt-up" d="M40.063,72.779V231.63a6.484,6.484,0,0,0,6.642,6.313h31a6.484,6.484,0,0,0,6.642-6.313V72.779H109.84c11.835,0,17.762-13.6,9.394-21.555L71.6,5.948a13.779,13.779,0,0,0-18.787,0L5.176,51.224c-8.369,7.954-2.442,21.555,9.394,21.555Z" transform="translate(152.742 147.651)" fill="#1892d3"/>
+  </g>
+</svg>

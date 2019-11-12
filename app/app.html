@@ -41,11 +41,52 @@
   </div>
 
   <div id="page1" class="page container-fluid">
-      <div class="card text-white bg-primary mb-3">
-          <div class="card-header text-center header-number">1</div>
+      <div style="height: 100%;" class="card  mb-3">
+          <div class="card-header text-center ">ตรวจสอบสิทธิรักษาพยาบาล</div>
           <div class="card-body">
-            <h5 class="card-title text-center">ตรวจสอบสิทธิรักษาพยาบาล</h5>
-            <p class="card-text text-center">ตรวจสอบสิทธิรักษาพยาบาลของตัวท่านเอง เพียงแค่นำบัตรประชาชนเสียบหน้าตู้ ช่องสีดำด้านขวา รอรับสลิป</p>
+
+            <div class="row">
+              <div class="col-md-6">
+                  <h5 class="card-title text-center">กรุณาเสียบบัตรประชาชน</h5>
+                <p class="text-center"><img style="width:300px;" src="./images/thai-smart-card.png" alt=""></p>
+                <p class="card-text text-center"></p>
+              </div>
+              <div class="col-md-6">
+                  <form class="needs-validation">
+                      <div >
+
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label for="firstName">ชื่อ</label>
+                            <input type="text" disabled class="form-control" id="firstName" placeholder="" value="" required=""
+                              data-com.onepassword.iv="">
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label for="lastName">นามสกุล</label>
+                            <input type="text" disabled class="form-control" id="lastName" placeholder="" value="" required=""
+                              data-com.onepassword.iv="">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label for="idcard">เลขบัตรประชาชน</label>
+                            <input type="text" disabled class="form-control" id="idcard" placeholder="" value="" required=""
+                              data-com.onepassword.iv="">
+                          </div>
+                          <div class="col-md-6 mb-3">
+
+                          </div>
+                        </div>
+                        <br>
+
+
+                      </div>
+                    </form>
+
+              </div>
+            </div>
+
+
           </div>
           <div class="card-footer bg-transparent">
               <button id="back1" class="btn btn-outline-light" data-page="page1"><< กลับหน้าหลัก</button>
@@ -71,7 +112,46 @@
         <div class="card-header text-center header-number">3</div>
         <div class="card-body">
           <h5 class="card-title text-center">ลงทะเบียนขอใช้ฟรี Wi-Fi</h5>
-          <p class="card-text">ลงทะเบียนรับฟรี wi-fi ง่ายๆ เพียงแค่นำบัตรประชาชนเสียบหน้าตู้ ช่องสีดำด้านขวา แล้วรับสลิปรายละเอียด Username, Password เพื่อเข้าใช้งาน</p>
+          <div class="row">
+              <div class="col-md-6">
+                  <h5 class="card-title text-center">กรุณาเสียบบัตรประชาชน</h5>
+                <p class="text-center"><img style="width:300px;" src="./images/thai-smart-card.png" alt=""></p>
+                <p class="card-text text-center"></p>
+              </div>
+              <div class="col-md-6">
+                  <form class="needs-validation">
+                      <div >
+
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label for="firstName">ชื่อ</label>
+                            <input type="text" disabled class="form-control" id="firstName2" placeholder="" value="" required=""
+                              data-com.onepassword.iv="">
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label for="lastName">นามสกุล</label>
+                            <input type="text" disabled class="form-control" id="lastName2" placeholder="" value="" required=""
+                              data-com.onepassword.iv="">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label for="idcard">เลขบัตรประชาชน</label>
+                            <input type="text" disabled class="form-control" id="idcard2" placeholder="" value="" required=""
+                              data-com.onepassword.iv="">
+                          </div>
+                          <div class="col-md-6 mb-3">
+
+                          </div>
+                        </div>
+                        <br>
+
+
+                      </div>
+                    </form>
+
+              </div>
+            </div>
         </div>
         <div class="card-footer bg-transparent">
           <button id="back3" class="btn btn-outline-light" data-page="page3"><< กลับหน้าหลัก</button>
@@ -84,6 +164,7 @@
       <div class="card-header text-center header-number">ตั้งค่า</div>
       <div class="card-body">
         <form class="needs-validation" id="settingForm" >
+
           <div class="form-row">
             <div class="col-md-6 mb-3">
               <label for="txtCardNo">Card No.</label>
@@ -95,6 +176,13 @@
             </div>
           </div>
 
+          <div class="form-row">
+            <div class="col-md-12">
+              <label for="txtApiToken">API Token</label>
+              <input type="text" class="form-control" id="txtApiToken" name="api_token" placeholder=""  required>
+            </div>
+          </div>
+          <br>
           <button class="btn btn-primary" type="submit">บันทึก</button>
         </form>
       </div>

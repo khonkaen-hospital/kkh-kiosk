@@ -39,6 +39,9 @@
     "electron-store": "^5.1.0",
     "escpos": "^2.5.2",
     "fs-jetpack": "^2.1.0",
+    "generate-password": "^1.4.2",
+    "moment": "^2.24.0",
+    "password-generator": "^2.2.3",
     "xml-js": "^1.6.11",
     "xmltojson": "^1.3.5"
   },
