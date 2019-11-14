@@ -241,7 +241,7 @@ function print() {
       }
   });
 }
-``
+
 module.exports = {
   setToken: setToken,
   createUser: createUser,

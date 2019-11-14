@@ -56,15 +56,9 @@
                       <div >
 
                         <div class="row">
-                          <div class="col-md-6 mb-3">
-                            <label for="firstName">ชื่อ</label>
-                            <input type="text" disabled class="form-control" id="firstName" placeholder="" value="" required=""
-                              data-com.onepassword.iv="">
-                          </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="lastName">นามสกุล</label>
-                            <input type="text" disabled class="form-control" id="lastName" placeholder="" value="" required=""
-                              data-com.onepassword.iv="">
+                          <div class="col-md-12 mb-3">
+                            <label for="txtFullname">ชื่อ</label>
+                            <input type="text" disabled class="form-control" id="txtFullname" placeholder="" value="" required="">
                           </div>
                         </div>
                         <div class="row">
@@ -123,15 +117,9 @@
                       <div >
 
                         <div class="row">
-                          <div class="col-md-6 mb-3">
-                            <label for="firstName">ชื่อ</label>
-                            <input type="text" disabled class="form-control" id="firstName2" placeholder="" value="" required=""
-                              data-com.onepassword.iv="">
-                          </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="lastName">นามสกุล</label>
-                            <input type="text" disabled class="form-control" id="lastName2" placeholder="" value="" required=""
-                              data-com.onepassword.iv="">
+                          <div class="col-md-12">
+                            <label for="txtFullname2">ชื่อ-นามสกุล</label>
+                            <input type="text" disabled class="form-control" id="txtFullname2" placeholder="" value="" required="">
                           </div>
                         </div>
                         <div class="row">
@@ -196,6 +184,28 @@
                   <label for="txtPrinterIp">Printer IP</label>
                   <input type="text" class="form-control" id="txtPrinterIp" name="printer_ip" placeholder=""  required>
               </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="txtKioskID">Kiosk ID</label>
+                  <input type="text" class="form-control" id="txtKioskID" name="kiosk_id" placeholder=""  required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="txtMqttHost">Mqtt Host</label>
+                  <input type="text" class="form-control" id="txtMqttHost" name="mqtt_host" placeholder=""  required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="txtMqttUsername">Mqtt Username</label>
+                  <input type="text" class="form-control" id="txtMqttUsername" name="mqtt_username" placeholder=""  required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="txtMqttPassword">Mqtt Password</label>
+                  <input type="text" class="form-control" id="txtMqttPassword" name="mqtt_password" placeholder=""  required>
+                </div>
             </div>
           <br>
           <button class="btn btn-primary" type="submit">บันทึก</button>

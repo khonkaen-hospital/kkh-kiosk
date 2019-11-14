@@ -16,9 +16,12 @@ import env from "env";
 import * as xmlToJSON from "xmlToJSON";
 import * as nhso from "./nhso";
 import * as radius from "./radius";
+import * as Mqtt from "./mqtt";
+
 
 const { Reader } = require('@dogrocker/thaismartcardreader')
 const escpos = require('escpos');
+const moment = require('moment');
 
 const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
@@ -30,7 +33,11 @@ const schema = {
     token: '',
     apiToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzM1Mjk5NjEsImV4cCI6MTg4OTEwNTk2MX0.nND9DZYH6Ap3OJHh6YPjVBTvUhoS667c3VV6kximKoI',
     printerType: 'usb',
-    printerIp: '10.3.42.77'
+    printerIp: '10.3.42.77',
+    kioskId: '1',
+    mqttIp: '192.168.0.128',
+    mqttUsername: 'q4u',
+    mqttPassword: '##q4u##'
 	}
 };
 const store = new Store({schema});
@@ -50,14 +57,18 @@ var pageError1 = '';
 var pageError2 = '';
 var pageError3 = '';
 
-var txtName = document.getElementById('firstName');
-var txtSurname = document.getElementById('lastName');
-var txtIdcard = document.getElementById('idcard');
+
 var txtPrinterType = document.getElementById('txtPrinterType');
 var txtPrinterIp = document.getElementById('txtPrinterIp');
+var txtKioskID = document.getElementById('txtKioskID');
+var txtMqttHost = document.getElementById('txtMqttHost');
+var txtMqttUsername = document.getElementById('txtMqttUsername');
+var txtMqttPassword = document.getElementById('txtMqttPassword');
 
-var txtName2 = document.getElementById('firstName2');
-var txtSurname2 = document.getElementById('lastName2');
+var txtFullname = document.getElementById('txtFullname');
+var txtIdcard = document.getElementById('idcard');
+
+var txtFullname2 = document.getElementById('txtFullname2');
 var txtIdcard2 = document.getElementById('idcard2');
 
 // Holy crap! This is browser window with HTML and stuff, but I can read
@@ -158,7 +169,11 @@ function initForm() {
       token: '',
       apiToken: '',
       printerType: 'usb',
-      printerIp: '10.3.42.77'
+      printerIp: '10.3.42.77',
+      kioskId: '1',
+      mqttIp: '192.168.0.128',
+      mqttUsername: 'q4u',
+      mqttPassword: '##q4u##'
     });
   } else {
     CARDNO = data.cardNo;
@@ -168,6 +183,13 @@ function initForm() {
     document.getElementById('txtApiToken').value = data.apiToken;
     document.getElementById('txtPrinterType').value = data.printerType;
     document.getElementById('txtPrinterIp').value = data.printerIp;
+
+    txtKioskID.value = data.kioskId;
+    txtMqttHost.value = data.mqttIp;
+    txtMqttUsername.value = data.mqttUsername;
+    txtMqttPassword.value = data.mqttPassword;
+
+
   }
   radius.setToken('http://iconnect.kkh.go.th:3008',data.apiToken, data.printerIp, data.printerType);
 }
@@ -185,7 +207,11 @@ forms.addEventListener('submit', event => {
 		token: token,
     apiToken: txtApiToken,
     printerType: txtPrinterType,
-    printerIp: txtPrinterIp
+    printerIp: txtPrinterIp,
+    kioskId: txtKioskID.value,
+    mqttIp: txtMqttHost.value ,
+    mqttUsername: txtMqttUsername.value,
+    mqttPassword: txtMqttPassword.value
   });
   // back to home page
   animateCSS('#page4','slideOutDown', () => {
@@ -193,15 +219,34 @@ forms.addEventListener('submit', event => {
     page0.classList.add('pageActive');
     animateCSS('#page0','slideInDown');
   });
+  initForm();
   event.preventDefault()
 })
 
+function getValue(object) {
+  try {
+    return object.hasOwnProperty('_text') ? object['_text'] : '';
+  } catch (error) {
+    return '-';
+  }
+}
+
 async function getNhso(cid){
   let data = await nhso(CARDNO,TOKEN, cid);
+
+  console.log('======NHSO RESPONSE DATA=====', data.data);
   if(data.status == 'NHSO-000001'){
-    printSlipCRight(data);
+    let result = data.data;
+
+    // printSlipCRight(data);
+    printRithtWithSdk({
+      'fullname': txtFullname.value,
+      'maininscl_name': getValue(result.maininscl_name),
+      'subinscl_name': getValue(result.subinscl_name),
+      'hmain_name': getValue(result.hmain_name),
+    });
   }
-  console.log('======NHSO RESPONSE DATA=====', data);
+
 }
 
 function initSmartCard(){
@@ -268,12 +313,11 @@ function initSmartCard(){
 }
 
 function reset(){
-  txtName.value = '';
-  txtSurname.value = '';
+  txtFullname.value = '';
   txtIdcard.value = '';
-  txtName2.value = '';
-  txtSurname2.value = '';
+  txtFullname2.value = '';
   txtIdcard2.value = '';
+  console.log('reset')
 }
 
 function activePage(page) {
@@ -408,8 +452,98 @@ function printSlipCRight(ret) {
   img.src = '../resources/kkh_logo.png'; // Set source path
 }
 
+function printRithtWithSdk(data={fullname,maininscl_name,subinscl_name, hmain_name}) {
+  var device = null;
+  if(txtPrinterType.value=='ip') {
+     device = new escpos.Network(txtPrinterIp.value);
+  } else {
+     device = new escpos.USB();
+  }
+
+  const printer = new escpos.Printer(device);
+
+  device.open(function () {
+    var dateTime = moment().locale('th').format('DD MMM YYYY HH:mm:ss');
+
+    let p = printer
+      .model('qrprinter')
+      .align('ct')
+      .encode('tis620')
+      .size(2, 1)
+      .text('โรงพยาบาลขอนแก่น')
+      .size(1, 1)
+      .text('ข้อมูลสิทธิการรักษา')
+      .text('')
+      .size(1, 1)
+      .text('ชื่อ-นามสกุล')
+      .size(0, 1)
+      .text(data.fullname)
+      .size(1, 1)
+      .text('สิทธิการักษา')
+      .size(0, 1)
+      .text(data.maininscl_name)
+      .size(1, 1)
+      .text('สิทธิที่เข้ารับบริการ')
+      .size(0, 1)
+      .text(data.subinscl_name)
+      .size(1, 1)
+      .text('หน่วยบริการหลัก')
+      .size(0, 1)
+      .text(data.hmain_name)
+      .text('')
+      .text(dateTime)
+      .text('')
+      .cut()
+      .close();
+  });
+}
+
+function initMqtt(){
+
+  Mqtt.start({
+    'edcid':txtKioskID.value,
+    'host': txtMqttHost.value,
+    'username': txtMqttUsername.value,
+    'password':txtMqttPassword.value
+  });
+
+  let client = Mqtt.getClient()
+
+  Mqtt.event.on('response', (data) => {
+    console.log(data);
+      if(data.ok==true) {
+        console.log(data.results);
+
+        txtIdcard.value = data.results.cid.substring(0, 10) + '***';
+        txtIdcard2.value = data.results.cid.substring(0, 10) + '***';
+        txtFullname.value = data.results.fullname;
+        txtFullname2.value = data.results.fullname;
+
+        IDENTITY = {
+          fullname: data.results.fullname,
+          idcard: data.results.cid,
+          dob: data.results.dob,
+          createdByName: 'kiosk'
+        }
+
+        cardStatus = true;
+        if(ACTIVE_PAGE === 'page1'){
+          getNhso(data.results.cid);
+        }
+        else if(ACTIVE_PAGE === 'page3'){
+          console.log('Internet');
+          let username = data.results.cid;
+          let result = radius.createUser(username, 'Visitor-Users',JSON.stringify(IDENTITY),'4hours',false,true);
+        }
+      } else {
+        reset();
+      }
+  });
+}
+
 
 initForm();
-initSmartCard();
+initMqtt();
+// initSmartCard();
 
 
